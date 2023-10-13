@@ -49,18 +49,17 @@ StandaloneHost::~StandaloneHost()
 {
 }
 
-void StandaloneHost::setupAudioBusses(const clap_plugin_t *plugin,
-                                      const clap_plugin_audio_ports_t *audioports)
+void StandaloneHost::setupAudioBusses(const Clap::PluginProxy &plugin)
 {
   if (!audioports) return;
-  numAudioInputs = audioports->count(plugin, true);
-  numAudioOutputs = audioports->count(plugin, false);
+  numAudioInputs = plugin.audioPortsCount(true);
+  numAudioOutputs = plugin.audioPortsCount(false);
   LOG << "inputs/outputs : " << numAudioInputs << "/" << numAudioOutputs << std::endl;
 
   clap_audio_port_info_t info;
   for (auto i = 0U; i < numAudioInputs; ++i)
   {
-    audioports->get(plugin, i, true, &info);
+    plugin.audioPortsGet(i, true, &info);
     // LOG << "  - input " << i << " " << info.name << std::endl;
     inputChannelByBus.push_back(info.channel_count);
     totalInputChannels += info.channel_count;
@@ -68,7 +67,7 @@ void StandaloneHost::setupAudioBusses(const clap_plugin_t *plugin,
   }
   for (auto i = 0U; i < numAudioOutputs; ++i)
   {
-    audioports->get(plugin, i, false, &info);
+    plugin.audioPortsGet(i, false, &info);
     // LOG << "  - output " << i << " " << info.name << std::endl;
     outputChannelByBus.push_back(info.channel_count);
     totalOutputChannels += info.channel_count;
@@ -81,14 +80,13 @@ void StandaloneHost::setupAudioBusses(const clap_plugin_t *plugin,
   if (numAudioOutputs > 0) LOG << "main audio output is " << mainOutput << std::endl;
 }
 
-void StandaloneHost::setupMIDIBusses(const clap_plugin_t *plugin,
-                                     const clap_plugin_note_ports_t *noteports)
+void StandaloneHost::setupMIDIBusses(const Clap::PluginProxy &plugin)
 {
-  auto numMIDIInPorts = noteports->count(plugin, true);
+  auto numMIDIInPorts = plugin.notePortsCount(true);
   if (numMIDIInPorts > 0)
   {
     clap_note_port_info_t info;
-    noteports->get(plugin, 0, true, &info);
+    plugin.notePortsGet(0, true, &info);
     if (info.supported_dialects & CLAP_NOTE_DIALECT_MIDI)
     {
       hasMIDIInput = true;
@@ -99,7 +97,7 @@ void StandaloneHost::setupMIDIBusses(const clap_plugin_t *plugin,
     }
     LOG << "Set up input: midi=" << hasMIDIInput << " clapNote=" << hasClapNoteInput << std::endl;
   }
-  auto numMIDIOutPorts = noteports->count(plugin, false);
+  auto numMIDIOutPorts = plugin.notePortsCount(false);
   if (numMIDIOutPorts > 0)
   {
     createsMidiOutput = true;
