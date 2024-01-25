@@ -86,9 +86,9 @@ tresult PLUGIN_API ClapAsVst3::setActive(TBool state)
 
     // the processAdapter needs to know a few things to intercommunicate between VST3 host and CLAP plugin.
 
-    _processAdapter->setupProcessing(this->audioInputs, this->audioOutputs,
-        this->_largestBlocksize, this->eventInputs.size(), this->eventOutputs.size(), parameters,
-        componentHandler, this, supportsnoteexpression,
+    _processAdapter->setupProcessing(
+        this->audioInputs, this->audioOutputs, this->_largestBlocksize, this->eventInputs.size(),
+        this->eventOutputs.size(), parameters, componentHandler, this, supportsnoteexpression,
         _expressionmap & clap_supported_note_expressions::AS_VST3_NOTE_EXPRESSION_TUNING);
     updateAudioBusses();
 
@@ -878,8 +878,8 @@ void ClapAsVst3::onIdle()
     {
       // setup a ProcessAdapter just for flush with no audio
       Clap::ProcessAdapter pa{*_plugin->getProxy()};
-      pa.setupProcessing(audioInputs, audioOutputs, 0, 0, 0,
-                         this->parameters, componentHandler, nullptr, false, false);
+      pa.setupProcessing(audioInputs, audioOutputs, 0, 0, 0, this->parameters, componentHandler, nullptr,
+                         false, false);
       pa.flush();
     }
   }

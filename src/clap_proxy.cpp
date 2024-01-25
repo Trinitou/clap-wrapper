@@ -67,7 +67,7 @@ void Plugin::connectClap(const clap_plugin_t* clap)
 {
   if (!clap) return;
 
-  _pluginProxy = std::make_unique<PluginProxy>(*clap);
+  _pluginProxy = std::make_unique<PluginProxy>(*clap, *this);
 
   // initialize the plugin
   if (!_pluginProxy->init())
