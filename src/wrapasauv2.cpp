@@ -244,7 +244,7 @@ void WrapAsAUV2::setupWrapperSpecifics(const Clap::PluginProxy& proxy)
   // proxy.getExtension(_auv2_specifics, CLAP_PLUGIN_AS_AUV2);
 }
 
-void WrapAsAUV2::setupAudioBusses(const Clap::PluginProxy& proxy)
+void WrapAsAUV2::setupAudioBusses(const Clap::PluginAudioPortsProxy& proxy)
 {
   auto numAudioInputs = proxy.audioPortsCount(true);
   auto numAudioOutputs = proxy.audioPortsCount(false);
@@ -279,7 +279,7 @@ void WrapAsAUV2::setupAudioBusses(const Clap::PluginProxy& proxy)
 
 }  // called from initialize() to allow the setup of audio ports
 
-void WrapAsAUV2::setupMIDIBusses(const Clap::PluginProxy& proxy)
+void WrapAsAUV2::setupMIDIBusses(const Clap::PluginNotePortsProxy& proxy)
 {
   // TODO: figure out if MIDI is is preferred as CLAP or Notes
   if (!proxy.canUseNotePorts()) return;
@@ -329,7 +329,7 @@ void WrapAsAUV2::setupMIDIBusses(const Clap::PluginProxy& proxy)
    */
 }
 
-void WrapAsAUV2::setupParameters(const Clap::PluginProxy& proxy)
+void WrapAsAUV2::setupParameters(const Clap::PluginParamsProxy& proxy)
 {
   auto guarantee_mainthread = _plugin->AlwaysMainThread();
   // creating parameters.

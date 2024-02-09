@@ -49,7 +49,7 @@ StandaloneHost::~StandaloneHost()
 {
 }
 
-void StandaloneHost::setupAudioBusses(const Clap::PluginProxy &proxy)
+void StandaloneHost::setupAudioBusses(const Clap::PluginAudioPortsProxy &proxy)
 {
   if (!proxy.canUseAudioPorts()) return;
   numAudioInputs = proxy.audioPortsCount(true);
@@ -80,7 +80,7 @@ void StandaloneHost::setupAudioBusses(const Clap::PluginProxy &proxy)
   if (numAudioOutputs > 0) LOG << "main audio output is " << mainOutput << std::endl;
 }
 
-void StandaloneHost::setupMIDIBusses(const Clap::PluginProxy &proxy)
+void StandaloneHost::setupMIDIBusses(const Clap::PluginNotePortsProxy &proxy)
 {
   auto numMIDIInPorts = proxy.notePortsCount(true);
   if (numMIDIInPorts > 0)

@@ -35,10 +35,16 @@ constexpr auto Plugin_CL = clap::helpers::CheckingLevel::None;
 
 using PluginHostBase = clap::helpers::Host<Plugin_MH, Plugin_CL>;
 using PluginProxy = clap::helpers::PluginProxy<Plugin_MH, Plugin_CL>;
+using PluginAudioPortsProxy = clap::helpers::PluginAudioPortsProxy<Plugin_MH, Plugin_CL>;
+using PluginNotePortsProxy = clap::helpers::PluginNotePortsProxy<Plugin_MH, Plugin_CL>;
+using PluginParamsProxy = clap::helpers::PluginParamsProxy<Plugin_MH, Plugin_CL>;
 }  // namespace Clap
 
 extern template class clap::helpers::Host<Clap::Plugin_MH, Clap::Plugin_CL>;
 extern template class clap::helpers::PluginProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+extern template class clap::helpers::PluginAudioPortsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+extern template class clap::helpers::PluginNotePortsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+extern template class clap::helpers::PluginParamsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
 
 namespace Clap
 {
@@ -57,10 +63,12 @@ class IHost
       const PluginProxy& plugin) = 0;  // called when a wrapper could scan for wrapper specific plugins
 
   virtual void setupAudioBusses(
-      const PluginProxy& proxy) = 0;  // called from initialize() to allow the setup of audio ports
+      const PluginAudioPortsProxy&
+          proxy) = 0;  // called from initialize() to allow the setup of audio ports
   virtual void setupMIDIBusses(
-      const PluginProxy& proxy) = 0;  // called from initialize() to allow the setup of MIDI ports
-  virtual void setupParameters(const PluginProxy& proxy) = 0;
+      const PluginNotePortsProxy&
+          proxy) = 0;  // called from initialize() to allow the setup of MIDI ports
+  virtual void setupParameters(const PluginParamsProxy& proxy) = 0;
 
   virtual void param_rescan(clap_param_rescan_flags flags) = 0;  // ext_host_params
   virtual void param_clear(clap_id param, clap_param_clear_flags flags) = 0;

@@ -524,7 +524,7 @@ bool ClapAsVst3::checkMIDIDialectSupport()
   return false;
 }
 
-void ClapAsVst3::setupAudioBusses(const Clap::PluginProxy& proxy)
+void ClapAsVst3::setupAudioBusses(const Clap::PluginAudioPortsProxy& proxy)
 {
   if (!proxy.canUseAudioPorts()) return;
   auto numAudioInputs = proxy.audioPortsCount(true);
@@ -550,7 +550,7 @@ void ClapAsVst3::setupAudioBusses(const Clap::PluginProxy& proxy)
   }
 }
 
-void ClapAsVst3::setupMIDIBusses(const Clap::PluginProxy& proxy)
+void ClapAsVst3::setupMIDIBusses(const Clap::PluginNotePortsProxy& proxy)
 {
   if (!proxy.canUseNotePorts()) return;
   auto numMIDIInPorts = proxy.notePortsCount(true);
@@ -582,7 +582,7 @@ void ClapAsVst3::setupMIDIBusses(const Clap::PluginProxy& proxy)
   }
 }
 
-void ClapAsVst3::setupParameters(const Clap::PluginProxy& proxy)
+void ClapAsVst3::setupParameters(const Clap::PluginParamsProxy& proxy)
 {
   if (!proxy.canUseParams()) return;
 

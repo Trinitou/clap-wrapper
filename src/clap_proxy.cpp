@@ -15,6 +15,9 @@
 
 template class clap::helpers::Host<Clap::Plugin_MH, Clap::Plugin_CL>;
 template class clap::helpers::PluginProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+template class clap::helpers::PluginAudioPortsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+template class clap::helpers::PluginNotePortsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+template class clap::helpers::PluginParamsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
 
 namespace Clap
 {
