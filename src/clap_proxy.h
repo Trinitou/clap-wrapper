@@ -36,6 +36,7 @@ constexpr auto Plugin_CL = clap::helpers::CheckingLevel::None;
 using PluginHostBase = clap::helpers::Host<Plugin_MH, Plugin_CL>;
 using PluginProxy = clap::helpers::PluginProxy<Plugin_MH, Plugin_CL>;
 using PluginAudioPortsProxy = clap::helpers::PluginAudioPortsProxy<Plugin_MH, Plugin_CL>;
+using PluginGuiProxy = clap::helpers::PluginGuiProxy<Plugin_MH, Plugin_CL>;
 using PluginNotePortsProxy = clap::helpers::PluginNotePortsProxy<Plugin_MH, Plugin_CL>;
 using PluginParamsProxy = clap::helpers::PluginParamsProxy<Plugin_MH, Plugin_CL>;
 }  // namespace Clap
@@ -43,6 +44,7 @@ using PluginParamsProxy = clap::helpers::PluginParamsProxy<Plugin_MH, Plugin_CL>
 extern template class clap::helpers::Host<Clap::Plugin_MH, Clap::Plugin_CL>;
 extern template class clap::helpers::PluginProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
 extern template class clap::helpers::PluginAudioPortsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
+extern template class clap::helpers::PluginGuiProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
 extern template class clap::helpers::PluginNotePortsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
 extern template class clap::helpers::PluginParamsProxy<Clap::Plugin_MH, Clap::Plugin_CL>;
 

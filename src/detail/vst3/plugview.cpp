@@ -2,7 +2,7 @@
 #include <clap/clap.h>
 #include <cassert>
 
-WrappedView::WrappedView(const Clap::PluginProxy& proxy, std::function<void()> onDestroy,
+WrappedView::WrappedView(const Clap::PluginGuiProxy& proxy, std::function<void()> onDestroy,
                          std::function<void()> onRunLoopAvailable)
   : IPlugView(), FObject(), _proxy(proxy), _onDestroy(onDestroy), _onRunLoopAvailable(onRunLoopAvailable)
 {
